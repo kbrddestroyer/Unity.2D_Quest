@@ -85,7 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce03f0247bcea934f8ad68d9efefc68b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  merges:
-  - with: {fileID: 2140916503140246877, guid: 81854f342bb2ac243aa4398ed23850a0, type: 3}
-    output: {fileID: 1065852572988938327, guid: 86c9e021ce517d74abee1d2f76f70f33, type: 3}
+  merges: {fileID: 11400000, guid: ce550b75be0dc3c4aa3abe7fab7e2761, type: 2}
   fDistanceOnGui: 10
+  id: 0

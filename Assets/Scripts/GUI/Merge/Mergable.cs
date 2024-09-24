@@ -5,14 +5,9 @@ using UnityEngine.EventSystems;
 
 public class Mergable : MonoBehaviour, IDragHandler
 {
-    [System.Serializable]
-    public struct MergeStruct
-    {
-        public Mergable with;
-        public Mergable output;
-    }
-
-    [SerializeField] private MergeStruct[] merges;
+    [Header("Mergable Schema")]
+    [SerializeField] private MergeSchema merges;
+    [Header("Settings")]
     [SerializeField, Range(0f, 10f)] private float fDistanceOnGui;
     [SerializeField] private uint id;
 
@@ -20,7 +15,7 @@ public class Mergable : MonoBehaviour, IDragHandler
     private Vector3 position;
     private Camera mainCamera;
 
-    public uint ID { get => id; set => id = value; }
+    public uint ID { get => id; }
 
     private void Start()
     {
@@ -41,15 +36,25 @@ public class Mergable : MonoBehaviour, IDragHandler
             OnDragStop();
     }
 
-    public void DispatchMergeEvent()
+    /// <summary>
+    /// Handles merge event, validates closest mergable and calls Merge()
+    /// </summary>
+    public void HandleMergeEvent()
     {
         Mergable closest = Mergables.Instance.GetClosest(this);
-        Debug.Log(closest.gameObject);
+        if (!closest)
+        {
+            transform.position = position;
+            return;
+        }
         Merge(closest);
-
-        transform.position = position;
     }
 
+    /// <summary>
+    /// Creates new mergable in target position, destroys used components
+    /// </summary>
+    /// <param name="newMergable">Prefab: mergable to create</param>
+    /// <param name="with">GameObject: Second mergable</param>
     private void CreateNewMergable(Mergable newMergable, Mergable with)
     {
         GameObject createdMergable = Instantiate(newMergable.gameObject, with.transform.position, Quaternion.identity) as GameObject;
@@ -62,20 +67,9 @@ public class Mergable : MonoBehaviour, IDragHandler
 
     public void Merge(Mergable with)
     {
-        foreach (MergeStruct mergeRule in merges)
-        {
-            if (with.id == mergeRule.with.id)
-            {
-                CreateNewMergable(mergeRule.output, with);
-            }
-        }
-        foreach (MergeStruct mergeRule in with.merges)
-        {
-            if (this.id == mergeRule.with.id)
-            {
-                CreateNewMergable(mergeRule.output, with);
-            }
-        }
+        Mergable output = merges.Validate(this, with);
+        if (!output) return;
+        CreateNewMergable(output, with);
     }
 
     private void OnDragStop()
@@ -85,7 +79,7 @@ public class Mergable : MonoBehaviour, IDragHandler
             return;
         bDragged = false;
         Debug.Log("Merge event dispatch");
-        this.DispatchMergeEvent();
+        this.HandleMergeEvent();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -94,10 +88,12 @@ public class Mergable : MonoBehaviour, IDragHandler
         bDragged = true;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(transform.position, fDistanceOnGui);
     }
+#endif
 }

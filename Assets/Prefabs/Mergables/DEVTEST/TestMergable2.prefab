@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2342507582161432856, guid: 4212ff38255eee84bb9e1f71421d8d22, type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2342507582161432856, guid: 4212ff38255eee84bb9e1f71421d8d22, type: 3}
       propertyPath: merges.Array.data[0].with
       value: 
       objectReference: {fileID: 2342507582161432856, guid: 4212ff38255eee84bb9e1f71421d8d22, type: 3}

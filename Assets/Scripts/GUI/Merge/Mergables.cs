@@ -13,6 +13,8 @@ public class Mergables : MonoBehaviour, CommonInterfaces.ISingleton
 
     public List<Mergable> mergables;
 
+    [SerializeField, Range(0f, 100f)] private float fDistanceToMerge;
+
     private void Awake()
     {
         if (Instance)
@@ -33,7 +35,6 @@ public class Mergables : MonoBehaviour, CommonInterfaces.ISingleton
     {
         if (!mergables.Contains(mergable))
         {
-            mergable.ID = GetNextAvailableID();
             mergables.Add(mergable);
         }
     }
@@ -44,11 +45,6 @@ public class Mergables : MonoBehaviour, CommonInterfaces.ISingleton
         {
             mergables.Remove(mergable);
         }
-    }
-
-    public uint GetNextAvailableID()
-    {
-        return (uint) mergables.Count;
     }
 
     public Mergable GetClosest(Mergable related)
@@ -68,6 +64,16 @@ public class Mergables : MonoBehaviour, CommonInterfaces.ISingleton
             }
         }
 
+        if (fClosestDistance > fDistanceToMerge)
+            return null;
         return closest;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, fDistanceToMerge);
+    }
+#endif
 }
