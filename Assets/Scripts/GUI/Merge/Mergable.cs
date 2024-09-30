@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Mergable : MonoBehaviour, IDragHandler
+public class Mergable : InventoryItem, IDragHandler
 {
     [Header("Mergable Schema")]
     [SerializeField] private MergeSchema merges;
