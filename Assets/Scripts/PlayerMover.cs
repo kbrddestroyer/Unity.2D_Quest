@@ -7,6 +7,7 @@ public class PlayerMover : MonoBehaviour
 {
     [SerializeField, Range(0f, 10f)] private float fPlayerSpeed = 0.0f;
     [SerializeField, Range(0f, 1f)] private float fPlayerPositionBias;
+    [SerializeField] private bool bLockYAxis = true;
     [Header("Object dependencies")]
     [SerializeField] private Camera mainCamera;
 
@@ -15,7 +16,8 @@ public class PlayerMover : MonoBehaviour
     #region PRIVATES
     private void movePlayerToPoint(Vector2 vPoint)
     {
-        vDesiredPosition = vPoint;
+        // bLockYAxis locks Y axis to transform.position when set to true
+        vDesiredPosition = (bLockYAxis) ? new Vector2(vPoint.x, transform.position.y) : vPoint; 
     }
     #endregion
 

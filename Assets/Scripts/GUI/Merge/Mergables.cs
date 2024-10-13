@@ -12,7 +12,6 @@ public class Mergables : MonoBehaviour, CommonInterfaces.ISingleton
     #endregion
 
     public List<Mergable> mergables;
-
     [SerializeField, Range(0f, 100f)] private float fDistanceToMerge;
 
     private void Awake()

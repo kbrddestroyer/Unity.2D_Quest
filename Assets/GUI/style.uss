@@ -1,0 +1,11 @@
+VisualElement {}
+
+.unity-button
+{
+	scale: 1;
+}
+
+.unity-button:hover
+{
+	scale: 1.1;
+}

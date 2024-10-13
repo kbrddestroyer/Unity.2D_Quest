@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/GUI/style.uss?fileID=7433441132597879392&amp;guid=39b2657fda7314846b80edaaf63b0fb8&amp;type=3#style" />
+    <ui:VisualElement name="root" style="flex-grow: 1; align-items: center; justify-content: center; left: 50%; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0); position: absolute;">
+        <ui:Button text="Play" parse-escape-sequences="true" display-tooltip-when-elided="true" name="play" style="align-items: center; justify-content: center; width: auto; -unity-font: initial; -unity-font-style: bold; font-size: 32px; color: rgb(255, 255, 255); background-color: rgba(188, 188, 188, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+    </ui:VisualElement>
+</ui:UXML>
