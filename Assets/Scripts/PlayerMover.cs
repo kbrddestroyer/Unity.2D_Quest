@@ -8,11 +8,12 @@ public class PlayerMover : MonoBehaviour
     [SerializeField, Range(0f, 10f)] private float fPlayerSpeed = 0.0f;
     [SerializeField, Range(0f, 1f)] private float fPlayerPositionBias;
     [SerializeField] private bool bLockYAxis = true;
+    [SerializeField] private bool bMoveWithMouse = false;
     [Header("Object dependencies")]
     [SerializeField] private Camera mainCamera;
 
     private Vector3 vDesiredPosition = Vector2.zero;
-
+    private bool bShouldMoveToDesired = false;
     #region PRIVATES
     private void movePlayerToPoint(Vector2 vPoint)
     {
@@ -27,12 +28,10 @@ public class PlayerMover : MonoBehaviour
             mainCamera = Camera.main;
     }
 
-    private void Update()
+    private void MovePlayerWithMouse()
     {
-        if (Vector2.Distance(transform.position, vDesiredPosition) > fPlayerPositionBias)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, vDesiredPosition, Time.deltaTime * fPlayerSpeed);
-        }
+        if (!bMoveWithMouse)
+            return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -41,7 +40,31 @@ public class PlayerMover : MonoBehaviour
 
             movePlayerToPoint(mouseWorldPosition);
             Debug.Log(mouseWorldPosition);
+
+            bShouldMoveToDesired = true;
         }
+        if (bShouldMoveToDesired && Vector2.Distance(transform.position, vDesiredPosition) > fPlayerPositionBias)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, vDesiredPosition, Time.deltaTime * fPlayerSpeed);
+        }
+        else
+        {
+            bShouldMoveToDesired = false;
+        }
+    }
+
+    private void MovePlayerWithKeyboard()
+    {
+        float horizontalAspect = Input.GetAxis("Horizontal");
+        if (horizontalAspect != 0)
+            bShouldMoveToDesired = false;
+        transform.position += new Vector3(horizontalAspect, 0, 0) * Time.deltaTime * fPlayerSpeed;
+    }
+
+    private void Update()
+    {
+        MovePlayerWithMouse();      // Point-click system impl
+        MovePlayerWithKeyboard();   // WASD
     }
 
     protected void OnDrawGizmosSelected()

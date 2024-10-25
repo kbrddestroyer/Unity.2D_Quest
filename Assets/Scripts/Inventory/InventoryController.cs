@@ -10,31 +10,15 @@ public class InventoryController : MonoBehaviour
     private List<InventoryItem> allItems = new List<InventoryItem>();
 
     [SerializeField] private Transform inventoryGUIRoot;
-    [SerializeField] private KeyCode toggleKey = KeyCode.Tab;
 
     private bool isGUIEnabled = true;
 
     public bool GUIEnabled { get => isGUIEnabled; }
 
-    private void SetGUIEnabled(bool bState)
-    {
-        isGUIEnabled = bState;
-        inventoryGUIRoot.gameObject.SetActive(isGUIEnabled);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(toggleKey))
-        {
-            SetGUIEnabled(!isGUIEnabled);
-        }
-    }
-
     private void Awake()
     {
         if (instance)
             Debug.LogWarning("Multiple singleton instances on scene");
-        SetGUIEnabled(false);
         instance = this;
     }
 
