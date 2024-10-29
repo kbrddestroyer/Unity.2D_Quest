@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,8 +30,9 @@ public class CameraController : MonoBehaviour
         if (Vector2.Distance(playerTransform.position, transform.position) >= fMinRange || isMoving)
         {
             // Change camera position
-            transform.position = Vector3.Slerp(transform.position, playerTransform.position + Vector3.back * 10, fSpeed * Time.deltaTime);
-            isMoving = (Vector2.Distance(playerTransform.position, transform.position) > fStopRange);
+            float destinationX = math.lerp(transform.position.x, playerTransform.position.x, fSpeed * Time.deltaTime);
+            transform.position = new Vector3(destinationX, transform.position.y, transform.position.z);
+            isMoving = Math.Abs(playerTransform.position.x - transform.position.x) > fStopRange;
         }
     }
 

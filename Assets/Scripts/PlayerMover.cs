@@ -28,21 +28,14 @@ public class PlayerMover : MonoBehaviour
             mainCamera = Camera.main;
     }
 
-    private void MovePlayerWithMouse()
+    public void MoveToPoint(Vector3 destination)
     {
-        if (!bMoveWithMouse)
-            return;
+        movePlayerToPoint((Vector3) destination);
+        bShouldMoveToDesired = true;
+    }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 mouseSceenPosition = Input.mousePosition;
-            Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(mouseSceenPosition);
-
-            movePlayerToPoint(mouseWorldPosition);
-            Debug.Log(mouseWorldPosition);
-
-            bShouldMoveToDesired = true;
-        }
+    private void MovePlayerToComputedPositions()
+    {
         if (bShouldMoveToDesired && Vector2.Distance(transform.position, vDesiredPosition) > fPlayerPositionBias)
         {
             transform.position = Vector2.MoveTowards(transform.position, vDesiredPosition, Time.deltaTime * fPlayerSpeed);
@@ -63,7 +56,7 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
-        MovePlayerWithMouse();      // Point-click system impl
+        MovePlayerToComputedPositions();      // Point-click system impl
         MovePlayerWithKeyboard();   // WASD
     }
 
