@@ -56,8 +56,8 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
-        MovePlayerToComputedPositions();      // Point-click system impl
-        MovePlayerWithKeyboard();   // WASD
+        MovePlayerToComputedPositions();    // Point-click system impl
+        MovePlayerWithKeyboard();           // WASD
     }
 
     protected void OnDrawGizmosSelected()
