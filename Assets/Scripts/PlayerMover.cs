@@ -12,6 +12,11 @@ public class PlayerMover : MonoBehaviour
     [Header("Object dependencies")]
     [SerializeField] private Camera mainCamera;
 
+    public Animator animator;
+    private Vector2 _inputVector;
+    private bool _faceRight = true;
+
+
     private Vector3 vDesiredPosition = Vector2.zero;
     private bool bShouldMoveToDesired = false;
     #region PRIVATES
@@ -26,6 +31,8 @@ public class PlayerMover : MonoBehaviour
     {
         if (!mainCamera)
             mainCamera = Camera.main;
+
+        animator = GetComponent<Animator>();
     }
 
     public void MoveToPoint(Vector3 destination)
@@ -56,8 +63,12 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
+        _inputVector.x = Input.GetAxisRaw("Horizontal");
+
         MovePlayerToComputedPositions();    // Point-click system impl
         MovePlayerWithKeyboard();           // WASD
+        animator.SetFloat("moveX", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+        ReflectPlayer();
     }
 
     protected void OnDrawGizmosSelected()
@@ -65,5 +76,18 @@ public class PlayerMover : MonoBehaviour
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(transform.position, fPlayerPositionBias);
+    }
+
+    private void ReflectPlayer()
+    {
+        if (_inputVector.x > 0 && _faceRight == false ||
+            _inputVector.x < 0 && _faceRight == true)
+        {
+            Vector3 temp = transform.localScale;
+            temp.x *= -1;
+            transform.localScale = temp;
+
+            _faceRight = !_faceRight;
+        }
     }
 }
