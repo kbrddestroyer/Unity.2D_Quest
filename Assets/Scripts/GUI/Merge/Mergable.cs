@@ -20,7 +20,7 @@ public class Mergable : InventoryItem, IDragHandler
     private void Start()
     {
         mainCamera = Camera.main;
-        position = transform.position;
+        position = GetComponent<RectTransform>().position;
 
         Mergables.Instance.RegisterMergable(this);
     }
@@ -44,7 +44,7 @@ public class Mergable : InventoryItem, IDragHandler
         Mergable closest = Mergables.Instance.GetClosest(this);
         if (!closest)
         {
-            transform.position = position;
+            GetComponent<RectTransform>().position = position;
             return;
         }
         Merge(closest);
