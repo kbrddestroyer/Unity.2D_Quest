@@ -12,11 +12,14 @@ public class Collectable : MonoBehaviour
     {
         // Clicked on collectable item
         Debug.Log(gameObject.name);
-
+        if (!playerMover)
+        {
+            playerMover = Player.Instance.GetComponent<PlayerMover>();
+        }
         playerMover.MoveToPoint(transform.position);
     }
 
-    private void Start()
+    private void Awake()
     {
        playerMover = Player.Instance.GetComponent<PlayerMover>();
     }
