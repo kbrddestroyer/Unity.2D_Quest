@@ -21,7 +21,10 @@ public class Collectable : MonoBehaviour
 
     private void Awake()
     {
-       playerMover = Player.Instance.GetComponent<PlayerMover>();
+        if (Player.Instance)
+        {
+            playerMover = Player.Instance.GetComponent<PlayerMover>();
+        }
     }
 
     public void OnCollect()
