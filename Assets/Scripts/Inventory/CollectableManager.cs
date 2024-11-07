@@ -26,7 +26,7 @@ public class CollectableManager : MonoBehaviour
         Collectable closest;
         if (closest = FindClosest())
         {
-            if (Input.GetKeyDown(collectKey))
+            if (Input.GetKeyDown(collectKey) && closest)
             {
                 CollectItem(closest);
             }
@@ -39,8 +39,12 @@ public class CollectableManager : MonoBehaviour
         float fClosestDistance = 0;
         foreach (Collectable item in lCollectables)
         {
-            float fDistance = Vector2.Distance(transform.position, item.transform.position);
-            if (!closest || fClosestDistance > fDistance)
+            float fCurrentDistance = Vector2.Distance(transform.position, item.transform.position);
+
+            if (fCurrentDistance > fDistance)
+                continue;
+
+            if (!closest || fClosestDistance < fCurrentDistance)
             {
                 closest = item;
                 fClosestDistance = fDistance;

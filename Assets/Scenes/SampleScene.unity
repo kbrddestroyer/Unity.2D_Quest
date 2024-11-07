@@ -661,6 +661,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &1708940301 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3885897128505356803, guid: ff7ae6fdac9782d4f949b7fccae54d83, type: 3}
+  m_PrefabInstance: {fileID: 2920006083037940501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &309658399160068992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -735,12 +740,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1708940298}
     - target: {fileID: 2768195967767628019, guid: ff7ae6fdac9782d4f949b7fccae54d83, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 2768195967767628019, guid: ff7ae6fdac9782d4f949b7fccae54d83, type: 3}
       propertyPath: fPlayerSpeed
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2768195967767628019, guid: ff7ae6fdac9782d4f949b7fccae54d83, type: 3}
       propertyPath: bMoveWithMouse
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768195967767628019, guid: ff7ae6fdac9782d4f949b7fccae54d83, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1708940301}
+    - target: {fileID: 3885897128505356803, guid: ff7ae6fdac9782d4f949b7fccae54d83, type: 3}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3885897128505356803, guid: ff7ae6fdac9782d4f949b7fccae54d83, type: 3}
       propertyPath: m_Sprite
