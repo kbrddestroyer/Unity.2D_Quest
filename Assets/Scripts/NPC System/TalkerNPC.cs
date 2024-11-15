@@ -38,7 +38,7 @@ public class TalkerNPC : MonoBehaviour
         get => canBeTriggered;
         set
         {
-            if (!value)
+            if (!value && canBeTriggered)
                 ResetDialogue();
 
             canBeTriggered = value;
@@ -74,7 +74,7 @@ public class TalkerNPC : MonoBehaviour
     public void Interact()
     {
         if (!canBeTriggered) return;
-
+        Debug.Log(gameObject.name);
         if (!isBusy)
             StartDialogue();
         SkipOrSay();
