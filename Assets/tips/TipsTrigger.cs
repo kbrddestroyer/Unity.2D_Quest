@@ -12,7 +12,6 @@ public class TipsTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Вошёл))");
             TipsManager.displayTipEvent?.Invoke(message);
         }
     }
