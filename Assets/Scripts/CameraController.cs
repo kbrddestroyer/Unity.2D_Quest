@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraController : MonoBehaviour
 {
@@ -43,6 +44,26 @@ public class CameraController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, fMinRange);
         Gizmos.DrawWireSphere(transform.position, fStopRange);
         Handles.Label(transform.position + Vector3.up * 2f, $"Reaction distance is {fMinRange}");
+    }
+
+    public bool ResolvePlayerOnScene()
+    {
+        Player playerRef = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if (playerRef)
+        {
+            this.playerTransform = playerRef.transform;
+            return true;
+        }
+
+        playerRef = GameObject.FindAnyObjectByType<Player>();
+        if (playerRef)
+        {
+            this.playerTransform = playerRef.transform;
+            return true;
+        }
+
+        return false;
     }
 #endif
 }

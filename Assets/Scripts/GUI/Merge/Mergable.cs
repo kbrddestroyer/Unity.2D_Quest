@@ -39,15 +39,15 @@ public class Mergable : InventoryItem, IDragHandler
     /// <summary>
     /// Handles merge event, validates closest mergable and calls Merge()
     /// </summary>
-    public void HandleMergeEvent()
+    public bool HandleMergeEvent()
     {
         Mergable closest = Mergables.Instance.GetClosest(this);
         if (!closest)
         {
             GetComponent<RectTransform>().position = position;
-            return;
+            return false;
         }
-        Merge(closest);
+        return Merge(closest);
     }
 
     /// <summary>
@@ -65,11 +65,13 @@ public class Mergable : InventoryItem, IDragHandler
         Destroy(this.gameObject);
     }
 
-    public void Merge(Mergable with)
+    private bool Merge(Mergable with)
     {
         Mergable output = merges.Validate(this, with);
-        if (!output) return;
+        if (!output) return false;
         CreateNewMergable(output, with);
+
+        return true;
     }
 
     private void OnDragStop()
@@ -79,7 +81,10 @@ public class Mergable : InventoryItem, IDragHandler
             return;
         bDragged = false;
         Debug.Log("Merge event dispatch");
-        this.HandleMergeEvent();
+        if (!this.HandleMergeEvent())
+        {
+            // TODO: Dispatch player event
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
