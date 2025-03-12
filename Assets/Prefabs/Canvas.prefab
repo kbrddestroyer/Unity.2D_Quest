@@ -373,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_tooltipPrefab: {fileID: 5098915726416940265, guid: 3bab3f14935f9874faa4589d2806b813, type: 3}
   m_tooltipSceneRoot: {fileID: 3292644096238495808}
+  f_duration: 5
 --- !u!1 &3757796349855971914
 GameObject:
   m_ObjectHideFlags: 0

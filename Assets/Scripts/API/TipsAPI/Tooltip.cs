@@ -16,6 +16,8 @@ public class Tooltip : MonoBehaviour
 
     public string Text { get => m_text.text; set => m_text.text = value; }
 
+    public float Duration { get => f_duration; set => f_duration = value; }
+
     public bool State { 
         get => b_state; 
         set
@@ -32,6 +34,8 @@ public class Tooltip : MonoBehaviour
         {
             yield return new WaitForSeconds(f_duration);
             State = false;
+
+            Destroy(this.gameObject);
         }
     }
 
