@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Mergable : InventoryItem, IDragHandler
 {
@@ -11,13 +13,14 @@ public class Mergable : InventoryItem, IDragHandler
     [SerializeField, Range(0f, 10f)] private float fDistanceOnGui;
     [SerializeField] private uint id;
 
+
     private bool bDragged = false;
     private Vector3 position;
     private Camera mainCamera;
 
     public uint ID { get => id; }
 
-    private void Start()
+    public override void OnRegistered()
     {
         mainCamera = Camera.main;
         position = GetComponent<RectTransform>().position;
@@ -44,7 +47,6 @@ public class Mergable : InventoryItem, IDragHandler
         Mergable closest = Mergables.Instance.GetClosest(this);
         if (!closest)
         {
-            GetComponent<RectTransform>().position = position;
             return false;
         }
         return Merge(closest);
@@ -83,7 +85,9 @@ public class Mergable : InventoryItem, IDragHandler
         Debug.Log("Merge event dispatch");
         if (!this.HandleMergeEvent())
         {
-            // TODO: Dispatch player event
+            LayoutRebuilder.ForceRebuildLayoutImmediate(this.transform.root.GetComponent<RectTransform>());
+
+            InventoryController.Instance.OnMergeFail();
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : MonoBehaviour, IInventoryItem
+public abstract class InventoryItem : MonoBehaviour, IInventoryItem
 {
-    
+    public abstract void OnRegistered();
 }
