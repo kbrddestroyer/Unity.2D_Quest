@@ -427,19 +427,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757091948839045914, guid: 5a297dadcbf8d3345b5a10e70a9247a6, type: 3}
       propertyPath: cameraBounds.w
-      value: 0.91
+      value: 7.96
       objectReference: {fileID: 0}
     - target: {fileID: 4757091948839045914, guid: 5a297dadcbf8d3345b5a10e70a9247a6, type: 3}
       propertyPath: cameraBounds.x
-      value: -4.72
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 4757091948839045914, guid: 5a297dadcbf8d3345b5a10e70a9247a6, type: 3}
       propertyPath: cameraBounds.y
-      value: 3.07
+      value: -5.9
       objectReference: {fileID: 0}
     - target: {fileID: 4757091948839045914, guid: 5a297dadcbf8d3345b5a10e70a9247a6, type: 3}
       propertyPath: cameraBounds.z
-      value: 0.94
+      value: 20.05
       objectReference: {fileID: 0}
     - target: {fileID: 4757091948839045914, guid: 5a297dadcbf8d3345b5a10e70a9247a6, type: 3}
       propertyPath: playerTransform
