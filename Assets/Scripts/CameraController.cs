@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
     [SerializeField, Range(0f, 10f)] private float fMinRange;
     [SerializeField, Range(0f, 1f)] private float fStopRange;
     [SerializeField] private Vector4 cameraBounds;
+    [SerializeField] private bool fixPositions = true;
     [Header("Gizmos")]
     [SerializeField] private Color gizmoColor = new Color(0f, 0f, 0f, 1f);
 
@@ -29,6 +30,8 @@ public class CameraController : MonoBehaviour
 
     protected bool ValidatePosition(Vector2 pos)
     {
+        if (fixPositions) return fixPositions;
+
         return (
             pos.x > cameraBounds.x &&
             pos.x < cameraBounds.z &&
