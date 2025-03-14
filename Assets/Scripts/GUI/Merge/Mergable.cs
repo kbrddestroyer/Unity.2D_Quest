@@ -85,8 +85,6 @@ public class Mergable : InventoryItem, IDragHandler
         Debug.Log("Merge event dispatch");
         if (!this.HandleMergeEvent())
         {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(this.transform.root.GetComponent<RectTransform>());
-
             InventoryController.Instance.OnMergeFail();
         }
     }
