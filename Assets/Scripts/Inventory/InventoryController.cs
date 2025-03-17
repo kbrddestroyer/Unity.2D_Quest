@@ -43,6 +43,11 @@ public class InventoryController : MonoBehaviour
         Destroy(item.gameObject);
     }
 
+    public bool HasItem(InventoryItem item)
+    {
+        return allItems.Contains(item);
+    }
+
     public void OnMergeFail()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(inventoryGUIRoot.GetComponent<RectTransform>());
