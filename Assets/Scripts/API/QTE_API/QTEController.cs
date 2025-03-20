@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class QTEController : MonoBehaviour
 {
+    private static QTEController instance;
+    public static QTEController Instance { get => instance; }
+
     [SerializeField] private KeyCode[] codes;
     [SerializeField, Range(0f, 10f)] private float delay;
     [SerializeField, Range(0f, 1f)] private float timeBoundToPress;
@@ -12,7 +15,23 @@ public class QTEController : MonoBehaviour
 
     private uint keyInSequence = 0;
     private float deltaTime = 0f;
- 
+
+    private void Start()
+    {
+        if (instance)
+        {
+            Debug.LogError("QTE Controller must be unique on scene!");
+            return;
+        }
+
+        instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        instance = null;
+    }
+
     private void Fail()
     {
         keyInSequence = 0;
