@@ -10,6 +10,7 @@ public abstract class QTEController : MonoBehaviour
     [SerializeField, Range(0f, 1f)] protected float timeBoundToPress;
 
     protected bool completed = false;
+    protected bool started = false;
 
     protected uint keyInSequence = 0;
     protected float deltaTime = 0f;
@@ -24,6 +25,7 @@ public abstract class QTEController : MonoBehaviour
     public void StartQTE()
     {
         if (completed) return;
+        started = true;
 
         keyInSequence = 0;
         deltaTime = 0f;
@@ -35,6 +37,7 @@ public abstract class QTEController : MonoBehaviour
     {
         keyInSequence = 0;
         deltaTime = 0f;
+        started = false;
 
         OnUpdateDeltaTime(0);
         OnFail();
@@ -42,10 +45,12 @@ public abstract class QTEController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         deltaTime += Time.deltaTime;
-        OnUpdateDeltaTime(deltaTime);
+        
+        if (started)
+            OnUpdateDeltaTime(deltaTime);
 
         if (deltaTime > delay + timeBoundToPress)
         {
@@ -65,10 +70,11 @@ public abstract class QTEController : MonoBehaviour
             keyInSequence++;
             deltaTime = 0f;
 
-            if (keyInSequence > codes.Length)
+            if (keyInSequence >= codes.Length)
             {
                 OnComplete();
                 completed = true;
+                started = false;
                 keyInSequence = 0;
                 return;
             }

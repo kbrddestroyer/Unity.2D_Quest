@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InteractableQTE : QTEController
@@ -12,6 +13,9 @@ public class InteractableQTE : QTEController
     [SerializeField] private TMP_Text output;
     [SerializeField] private Slider timeSlider;
     [SerializeField] private GameObject GUIRoot;
+    [Header("Interaction Settings")]
+    [SerializeField, Range(0f, 10f)] private float distanceToInteract;
+    [SerializeField] private UnityEvent onSuccess;
 
     private void Start()
     {
@@ -32,7 +36,7 @@ public class InteractableQTE : QTEController
 
     protected override void OnFail()
     {
-        // Nothing goes here now
+        
     }
 
     protected override void OnNextStage(uint index)
@@ -48,6 +52,27 @@ public class InteractableQTE : QTEController
 
     protected override void OnComplete()
     {
-        // Added to maintain QTE API, nothing here currently
+        onSuccess.Invoke();
     }
+
+    protected new void Update()
+    {
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (Vector2.Distance(player.transform.position, transform.position) < distanceToInteract)
+            {
+                StartQTE();
+            }
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, distanceToInteract);
+    }
+#endif
 }
