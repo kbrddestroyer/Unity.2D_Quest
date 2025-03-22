@@ -3,45 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class QTEController : MonoBehaviour
+public abstract class QTEController : MonoBehaviour
 {
-    private static QTEController instance;
-    public static QTEController Instance { get => instance; }
+    [SerializeField] protected KeyCode[] codes;
+    [SerializeField, Range(0f, 10f)] protected float delay;
+    [SerializeField, Range(0f, 1f)] protected float timeBoundToPress;
 
-    [SerializeField] private KeyCode[] codes;
-    [SerializeField, Range(0f, 10f)] private float delay;
-    [SerializeField, Range(0f, 1f)] private float timeBoundToPress;
-    [SerializeField] private UnityEvent onSuccess;
+    protected bool completed = false;
 
-    private uint keyInSequence = 0;
-    private float deltaTime = 0f;
+    protected uint keyInSequence = 0;
+    protected float deltaTime = 0f;
 
-    private void Start()
+    protected abstract void OnStartQTE();
+    protected abstract void OnNextStage(uint index);
+    protected abstract void OnUpdateDeltaTime(float deltaTime);
+    protected abstract void OnFail();
+    protected abstract void OnComplete();
+    protected abstract void OnCancel();
+
+    public void StartQTE()
     {
-        if (instance)
-        {
-            Debug.LogError("QTE Controller must be unique on scene!");
-            return;
-        }
+        if (completed) return;
 
-        instance = this;
-    }
-
-    private void OnDestroy()
-    {
-        instance = null;
+        keyInSequence = 0;
+        deltaTime = 0f;
+        OnStartQTE();
+        OnNextStage(keyInSequence);
     }
 
     private void Fail()
     {
         keyInSequence = 0;
         deltaTime = 0f;
+
+        OnUpdateDeltaTime(0);
+        OnFail();
+        OnCancel();
     }
 
     // Update is called once per frame
     void Update()
     {
         deltaTime += Time.deltaTime;
+        OnUpdateDeltaTime(deltaTime);
 
         if (deltaTime > delay + timeBoundToPress)
         {
@@ -61,7 +65,14 @@ public class QTEController : MonoBehaviour
             keyInSequence++;
             deltaTime = 0f;
 
-            onSuccess.Invoke();
+            if (keyInSequence > codes.Length)
+            {
+                OnComplete();
+                completed = true;
+                keyInSequence = 0;
+                return;
+            }
+            OnNextStage(keyInSequence);
         }
     }
 }
