@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class InventoryController : MonoBehaviour
     private List<InventoryItem> allItems = new List<InventoryItem>();
 
     [SerializeField] private Transform inventoryGUIRoot;
+    [SerializeField] private UnityEvent failedMergeEvent;
 
     private bool isGUIEnabled = true;
 
@@ -30,6 +33,7 @@ public class InventoryController : MonoBehaviour
     public void AddItem(InventoryItem prefab)
     {
         InventoryItem item = Instantiate(prefab, inventoryGUIRoot);
+        item.OnRegistered();
         allItems.Add(item);
     }
 
@@ -37,5 +41,17 @@ public class InventoryController : MonoBehaviour
     {
         allItems.Remove(item);
         Destroy(item.gameObject);
+    }
+
+    public bool HasItem(InventoryItem item)
+    {
+        return allItems.Contains(item);
+    }
+
+    public void OnMergeFail()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(inventoryGUIRoot.GetComponent<RectTransform>());
+
+        failedMergeEvent.Invoke();
     }
 }
