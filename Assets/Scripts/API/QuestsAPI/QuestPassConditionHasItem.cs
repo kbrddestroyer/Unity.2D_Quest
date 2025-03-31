@@ -6,7 +6,7 @@ public class QuestPassConditionHasItem : IQuestPassCondition
 {
     private Quest questReference;
     
-    [SerializeField] private InventoryItem inventoryItem;
+    [SerializeField] private Mergable inventoryItem;
 
     public override bool isPassed()
     {
