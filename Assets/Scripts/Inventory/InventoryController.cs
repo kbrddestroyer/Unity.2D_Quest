@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
@@ -39,8 +40,32 @@ public class InventoryController : MonoBehaviour
 
     public void RemoveItem(InventoryItem item)
     {
+        Mergable itemMergable = (Mergable)item;
+
+        if (itemMergable)
+        {
+            Mergable toDestroy = null;
+            foreach (Mergable mergable in allItems)
+            {
+                if (mergable.ID == itemMergable.ID)
+                {
+                    toDestroy = mergable;
+                    break;
+                }
+            }
+
+            if (toDestroy == null)
+            {
+                Debug.LogWarning("No item found!");
+                return;
+            }
+
+            Destroy(toDestroy.gameObject);
+            return;
+        }
         allItems.Remove(item);
         Destroy(item.gameObject);
+        return;
     }
 
     public bool HasItem(InventoryItem item)
