@@ -95,6 +95,18 @@ public class Mergable : InventoryItem, IDragHandler
         bDragged = true;
     }
 
+    public override bool Equals(object other)
+    {
+        Mergable otherMerged = other as Mergable;
+
+        if (otherMerged)
+        {
+            return otherMerged.id == this.id;
+        }
+
+        return base.Equals(other);
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
