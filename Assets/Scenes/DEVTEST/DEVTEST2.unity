@@ -340,6 +340,10 @@ PrefabInstance:
       value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 4757091948839045914, guid: 5a297dadcbf8d3345b5a10e70a9247a6, type: 3}
+      propertyPath: fixPositions
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757091948839045914, guid: 5a297dadcbf8d3345b5a10e70a9247a6, type: 3}
       propertyPath: cameraBounds.w
       value: -15
       objectReference: {fileID: 0}

@@ -11,6 +11,12 @@ public class Quest : MonoBehaviour
     [SerializeField] private QuestStatus status = QuestStatus.QUEST_IDLE;
     public QuestStatus Status { get => status; protected set => status = value; }
 
+    public void Start()
+    {
+        if (!condition)
+            condition = GetComponent<IQuestPassCondition>();
+    }
+
     public void StartQuest()
     {
         Status = QuestStatus.QUEST_STARTED;
@@ -26,6 +32,8 @@ public class Quest : MonoBehaviour
 
     public void OnQuestConditionChanged()
     {
+        if (!this.enabled) return;
+
         if (condition != null)
         {
             if (condition.isPassed())

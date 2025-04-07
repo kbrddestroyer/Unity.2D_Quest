@@ -22,21 +22,25 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Color gizmoColor = new Color(0f, 0f, 0f, 1f);
 
     private bool isMoving = false;
+    private Camera cameraRef = null;
 
     private void Awake()
     {
         instance = this;
+
+        cameraRef = GetComponent<Camera>();
     }
 
     protected bool ValidatePosition(Vector2 pos)
     {
         if (fixPositions) return fixPositions;
 
+        float height = 2f * cameraRef.orthographicSize;
+        float width = height * cameraRef.aspect;
+
         return (
-            pos.x > cameraBounds.x &&
-            pos.x < cameraBounds.z &&
-            pos.y > cameraBounds.y &&
-            pos.y < cameraBounds.z
+            pos.x > cameraBounds.x + width / 2  &&
+            pos.x < cameraBounds.z - width / 2
             );
     }
 
