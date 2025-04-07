@@ -32,6 +32,8 @@ public class Quest : MonoBehaviour
 
     public void OnQuestConditionChanged()
     {
+        if (!this.enabled) return;
+
         if (condition != null)
         {
             if (condition.isPassed())
