@@ -789,11 +789,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5933392537408558182, guid: 04d7cde0dac38db46986672e62f4c0c0, type: 3}
       propertyPath: onQuestFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
+      value:
       objectReference: {fileID: 1702822704}
     - target: {fileID: 5933392537408558182, guid: 04d7cde0dac38db46986672e62f4c0c0, type: 3}
       propertyPath: onQuestFinished.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
+      value:
       objectReference: {fileID: 1702822704}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

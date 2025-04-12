@@ -14,24 +14,17 @@ using UnityEngine.UI;
 /// <summary>
 /// Basic talker class with scripting implementation
 /// </summary>
+[RequireComponent(typeof(TalkerController))]
 public class TalkerNPC : MonoBehaviour
 {
-    [SerializeField] private string[] sDialogue;
-    [SerializeField, Range(0f, 0.5f)] private float fCharacterDelay;
     [SerializeField, Range(0f, 10f)] private float fTriggerDistance;
-    [Header("GUI")]
-    [SerializeField] private TMP_Text text;
-    [Header("Dynamic Scripting")]
-    [SerializeField] private UnityEvent onStart;
-    [SerializeField] private UnityEvent onType;
-    [SerializeField] private UnityEvent onFinishAll;
-    [SerializeField] private UnityEvent onStop;
+    [SerializeField] private int currDialogue = 0;
 
+    public void setDialogue(int dialogue) { currDialogue = dialogue; }
+    
+    private TalkerController mController;
 
-    private bool isTalking = false;
-    private bool isBusy = false;
     private bool canBeTriggered = false;
-    private uint line = 0;
 
     private bool CanBeTriggered
     {
@@ -39,24 +32,15 @@ public class TalkerNPC : MonoBehaviour
         set
         {
             if (!value && canBeTriggered)
-                ResetDialogue();
+                mController.ResetDialogue();
 
             canBeTriggered = value;
         }
     }
 
-    private IEnumerator Talk(string line)
+    private void Start()
     {
-        isTalking = true;
-        text.text = "";
-
-        foreach (char ch in line)
-        {
-            text.text += ch;
-            onType.Invoke();
-            yield return new WaitForSeconds(fCharacterDelay);
-        }
-        isTalking = false;
+        mController = GetComponent<TalkerController>();
     }
 
     private void Update()
@@ -67,76 +51,8 @@ public class TalkerNPC : MonoBehaviour
         float fDistance = Vector2.Distance(transform.position, Player.Instance.transform.position);
         CanBeTriggered = fDistance <= fTriggerDistance;
 
-        if (Input.GetKeyDown(KeyCode.E))
-            Interact();
-    }
-
-    public void Interact()
-    {
-        if (!canBeTriggered) return;
-        Debug.Log(gameObject.name);
-        if (!isBusy)
-            StartDialogue();
-        SkipOrSay();
-    }
-
-    private void Say(uint lineNumber)
-    {
-        if (lineNumber == sDialogue.Length)
-        {
-            text.text = "";
-            ResetDialogue();
-
-            onFinishAll.Invoke();
-            return;
-        }
-        else if(lineNumber > sDialogue.Length)
-        {
-            Debug.LogError("Trying to call dialogue with line > length!");
-            return;
-        }
-        StartCoroutine(Talk(sDialogue[lineNumber]));
-    }
-
-    private void SayNextLine()
-    {
-        Say(line++);
-    }
-
-    private void SkipOrSay()
-    {
-        if (isTalking)
-        {
-            if (line > sDialogue.Length)
-                return;
-
-            StopAllCoroutines();
-            text.text = sDialogue[line - 1];
-            isTalking = false;
-        }
-        else
-        {
-            SayNextLine();
-        }
-    }
-
-    private void ResetDialogue()
-    {
-        text.text = "";
-
-        line = 0;
-        isTalking = false;
-        isBusy = false;
-
-        onStop.Invoke();
-    }
-
-    private void StartDialogue()
-    {
-        line = 0;
-        isBusy = true;
-
-        onStart.Invoke();
+        if (Input.GetKeyDown(KeyCode.E) && CanBeTriggered)
+            mController.Interact(currDialogue);
     }
 
 #if UNITY_EDITOR
