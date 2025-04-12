@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 33939776}
   - component: {fileID: 33939775}
   - component: {fileID: 33939774}
+  - component: {fileID: 33939777}
   m_Layer: 0
   m_Name: domovuha
   m_TagString: Untagged
@@ -263,6 +264,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 33939776}
+        m_TargetAssemblyTypeName: TalkerNPC, Assembly-CSharp
+        m_MethodName: setDialogue
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   status: 0
 --- !u!114 &33939776
 MonoBehaviour:
@@ -276,10 +289,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d39b51bfb5c1e45be01961721f08c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sDialogue:
-  - "\u043E\u0442\u0434\u0430\u0439 \u0441\u0435\u043C\u0435\u043D\u0430"
-  fCharacterDelay: 0.05
   fTriggerDistance: 5.85
+  currDialogue: 0
+--- !u!114 &33939777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33939771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c29147f35314643a6ff54d349db341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sDialogues:
+  - wrapped:
+    - "\u041F\u0440\u0438\u0432\u0435\u0442"
+    - "\u0414\u0430\u0439 \u0441\u0435\u043C\u0435\u043D\u0430 \u0441\u0443\u043A\u0430"
+  - wrapped:
+    - "\u0423"
+  fCharacterDelay: 0.027
   text: {fileID: 2140195370}
   onStart:
     m_PersistentCalls:
@@ -288,9 +318,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onFinishAll:
-    m_PersistentCalls:
-      m_Calls: []
-  onStop:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 33939775}
@@ -317,18 +344,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33939775}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  onStop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &87152383
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +360,7 @@ GameObject:
   - component: {fileID: 87152388}
   - component: {fileID: 87152387}
   - component: {fileID: 87152386}
+  - component: {fileID: 87152389}
   m_Layer: 0
   m_Name: older_sister
   m_TagString: Untagged
@@ -429,60 +448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d39b51bfb5c1e45be01961721f08c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sDialogue:
-  - "\u0434\u0430\u0432\u0430\u0439 \u043F\u043E\u043C\u0435\u043D\u044F\u0435\u043C\u0441\u044F"
-  - "\u043F\u043B\u0430\u0442\u043E\u043A \u043D\u0430 \u043A\u043E\u0440\u0437\u0438\u043D\u043A\u0443"
-  fCharacterDelay: 0.05
   fTriggerDistance: 7.44
-  text: {fileID: 696150296}
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onType:
-    m_PersistentCalls:
-      m_Calls: []
-  onFinishAll:
-    m_PersistentCalls:
-      m_Calls: []
-  onStop:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 87152388}
-        m_TargetAssemblyTypeName: Quest, Assembly-CSharp
-        m_MethodName: StartQuest
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 87152388}
-        m_TargetAssemblyTypeName: Quest, Assembly-CSharp
-        m_MethodName: OnQuestConditionChanged
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 87152388}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  currDialogue: 0
 --- !u!114 &87152387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,6 +516,33 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   status: 0
+--- !u!114 &87152389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87152383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c29147f35314643a6ff54d349db341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sDialogues: []
+  fCharacterDelay: 0
+  text: {fileID: 0}
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onType:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinishAll:
+    m_PersistentCalls:
+      m_Calls: []
+  onStop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &106318816
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +967,18 @@ PrefabInstance:
     - target: {fileID: 1800560192205762019, guid: 07bcd0dcbf798514f8415f49768faa24, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2893385028962227901, guid: 07bcd0dcbf798514f8415f49768faa24, type: 3}
+      propertyPath: mergables.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2893385028962227901, guid: 07bcd0dcbf798514f8415f49768faa24, type: 3}
+      propertyPath: mergables.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2893385028962227901, guid: 07bcd0dcbf798514f8415f49768faa24, type: 3}
+      propertyPath: mergables.Array.data[1]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4284796483529844427, guid: 07bcd0dcbf798514f8415f49768faa24, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1523,12 +1529,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0000019073486}
+  m_Offset: {x: 0, y: -0.42}
   serializedVersion: 2
-  m_Radius: 13.47
+  m_Radius: 4.59
 --- !u!114 &665136855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1985,11 +1991,11 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 8.95, y: 16.53}
+  m_Size: {x: 3.29, y: 8.85}
   m_Direction: 0
 --- !u!50 &756655846
 Rigidbody2D:
@@ -2207,8 +2213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13acc47dab69e7546a16ec31a895580b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseGame: 0
-  PauseGameMenu: {fileID: 0}
 --- !u!224 &912846397 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5907689747578594088, guid: 07bcd0dcbf798514f8415f49768faa24, type: 3}
@@ -3424,7 +3428,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3896,6 +3900,7 @@ GameObject:
   - component: {fileID: 1818143673}
   - component: {fileID: 1818143672}
   - component: {fileID: 1818143671}
+  - component: {fileID: 1818143675}
   m_Layer: 0
   m_Name: gate
   m_TagString: Untagged
@@ -3946,7 +3951,19 @@ MonoBehaviour:
   condition: {fileID: 1818143671}
   onQuestFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1818143674}
+        m_TargetAssemblyTypeName: UnityEngine.Collider2D, UnityEngine
+        m_MethodName: set_isTrigger
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   status: 0
 --- !u!114 &1818143673
 MonoBehaviour:
@@ -3960,46 +3977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d39b51bfb5c1e45be01961721f08c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sDialogue: []
-  fCharacterDelay: 0
-  fTriggerDistance: 0
-  text: {fileID: 0}
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onType:
-    m_PersistentCalls:
-      m_Calls: []
-  onFinishAll:
-    m_PersistentCalls:
-      m_Calls: []
-  onStop:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1818143672}
-        m_TargetAssemblyTypeName: Quest, Assembly-CSharp
-        m_MethodName: StartQuest
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1818143672}
-        m_TargetAssemblyTypeName: Quest, Assembly-CSharp
-        m_MethodName: OnQuestConditionChanged
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  fTriggerDistance: 4
+  currDialogue: 0
 --- !u!61 &1818143674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4029,7 +4008,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4045,6 +4024,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5, y: 10}
   m_EdgeRadius: 0
+--- !u!114 &1818143675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818143669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c29147f35314643a6ff54d349db341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sDialogues: []
+  fCharacterDelay: 0
+  text: {fileID: 0}
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onType:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinishAll:
+    m_PersistentCalls:
+      m_Calls: []
+  onStop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1819658258
 GameObject:
   m_ObjectHideFlags: 0
@@ -4442,7 +4448,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.0000019073486}
