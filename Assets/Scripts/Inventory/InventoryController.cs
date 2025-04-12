@@ -31,11 +31,16 @@ public class InventoryController : MonoBehaviour
         instance = null;
     }
 
+    public void AddItemToInventory(InventoryItem item)
+    {
+        item.OnRegistered();
+        allItems.Add(item);
+    }
+
     public void AddItem(InventoryItem prefab)
     {
         InventoryItem item = Instantiate(prefab, inventoryGUIRoot);
-        item.OnRegistered();
-        allItems.Add(item);
+        AddItemToInventory(item);
     }
 
     public void RemoveItem(InventoryItem item)
@@ -68,8 +73,11 @@ public class InventoryController : MonoBehaviour
         return;
     }
 
-    public bool HasItem(InventoryItem item)
+    public bool HasItem(Mergable item)
     {
+        
+        foreach (Mergable itemMergable in allItems)
+            Debug.Log(itemMergable.ID);
         return allItems.Contains(item);
     }
 

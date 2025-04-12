@@ -60,8 +60,12 @@ public class Mergable : InventoryItem, IDragHandler
     private void CreateNewMergable(Mergable newMergable, Mergable with)
     {
         GameObject createdMergable = Instantiate(newMergable.gameObject, with.transform.position, Quaternion.identity) as GameObject;
-
         createdMergable.transform.parent = with.transform.parent;
+
+        InventoryController iController = InventoryController.Instance;
+        iController.RemoveItem(with);
+        iController.RemoveItem(this);
+        iController.AddItemToInventory(createdMergable.GetComponent<Mergable>());
 
         Destroy(with.gameObject);
         Destroy(this.gameObject);
